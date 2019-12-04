@@ -14,12 +14,14 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/weather-icons-wind.css">
+    <link rel="stylesheet" href="css/weather-icons.css">
     <title>Document</title>
 </head>
 <body>
   <h1>Weather App Jeroen PHP</h1>
-  <form action="" method="get">
-    <input type="text" name="input" value="Mickey"><br>
+  <form method="get">
+    <input type="text" name="input" placeholder="City"><br>
     <button type="submit" value="Submit">Click here</button>
 </form>
 
@@ -30,7 +32,8 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
          echo '<div class ="card">';
 
          $date = date(l ,strtotime($json->list[$i]->dt_txt ));
-           if(validateDate($date) == true) {
+         $currentDate = date(l);
+           if( $date == $currentDate){
                echo '<h2>';
                echo 'Today';
                echo '</h2>';
@@ -72,11 +75,10 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
          echo intval($json->list[$i]->wind->speed * 3.6);
          echo "</p>";
 
-         echo '<p class="wind-dir">';
-         echo 'Wind direction : ';
-         echo $json->list[$i]->wind->deg;
-         echo ' °';
-         echo '</p>';
+         $degrades = $json->list[$i]->wind->deg;
+         echo "<p>wind direcrion</p>";
+         echo "<p id='icons' class='wi wi-wind towards-$degrades-deg'></p>";
+
 
          echo '</div>';
      }
